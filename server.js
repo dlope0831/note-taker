@@ -23,6 +23,22 @@ readFileAsync("./develop/db/db.json", "utf-8")
     })
 });
 
+app.post("/api/notes", function(req,res) {
+    const note = req.body;
+    readFileAsync("./develop/db/db.json", "utf-8")
+    .then(function(data) {
+        const notes = [].concat(JSON.parse(data));
+        for (let i = 0; i < notes.length; i++);
+        notes.push(note);
+        return notes 
+    })
+    .then (function(notes) {
+        writeFileAsync("./develop/db/db.json", JSON.stringify(notes))
+        res.json(notes);
+    })
+})
+
+
 app.listen(PORT, () => {
     console.log(`Note server now on port ${PORT}!`);
 });
