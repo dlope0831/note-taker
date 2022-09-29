@@ -19,7 +19,7 @@ const writeFileAsync = util.promisify(fs.writeFile);
 app.get("/api/notes", function(req, res) {
 readFileAsync("./develop/db/db.json", "utf-8")
 .then(function(data) {
-    notes= [].concat(JSON.parse(data))
+    notes = [].concat(JSON.parse(data))
     res.json(notes)
     })
 });
@@ -29,14 +29,12 @@ app.post("/api/notes", function(req,res) {
     readFileAsync("./develop/db/db.json", "utf-8")
     .then(function(data) {
         const notes = JSON.parse(data);
-
-        notes.push(note);
-        console.log(notes)
+        notes.push(note)
         return notes 
     })
     .then (function(notes) {
         writeFileAsync("./develop/db/db.json", JSON.stringify(notes))
-        res.json(notes)
+        res.json(note)
     })
     .catch(function(err) {
         res.status(500).json(err)
